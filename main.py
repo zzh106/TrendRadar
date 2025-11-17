@@ -262,9 +262,12 @@ def check_version_update(
 ) -> Tuple[bool, Optional[str]]:
     """检查版本更新"""
     try:
-        proxies = None
+        # 明确设置代理：如果配置了代理则使用，否则显式禁用环境变量中的代理
         if proxy_url:
             proxies = {"http": proxy_url, "https": proxy_url}
+        else:
+            # 显式禁用环境变量中的代理设置
+            proxies = {"http": None, "https": None}
 
         headers = {
             "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36",
@@ -453,9 +456,12 @@ class DataFetcher:
 
         url = f"https://newsnow.busiyi.world/api/s?id={id_value}&latest"
 
-        proxies = None
+        # 明确设置代理：如果配置了代理则使用，否则显式禁用环境变量中的代理
         if self.proxy_url:
             proxies = {"http": self.proxy_url, "https": self.proxy_url}
+        else:
+            # 显式禁用环境变量中的代理设置
+            proxies = {"http": None, "https": None}
 
         headers = {
             "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36",
@@ -3422,9 +3428,12 @@ def send_to_feishu(
 ) -> bool:
     """发送到飞书（支持分批发送）"""
     headers = {"Content-Type": "application/json"}
-    proxies = None
+    # 明确设置代理：如果配置了代理则使用，否则显式禁用环境变量中的代理
     if proxy_url:
         proxies = {"http": proxy_url, "https": proxy_url}
+    else:
+        # 显式禁用环境变量中的代理设置
+        proxies = {"http": None, "https": None}
 
     # 获取分批内容，使用飞书专用的批次大小
     batches = split_content_into_batches(
@@ -3512,9 +3521,12 @@ def send_to_dingtalk(
 ) -> bool:
     """发送到钉钉（支持分批发送）"""
     headers = {"Content-Type": "application/json"}
-    proxies = None
+    # 明确设置代理：如果配置了代理则使用，否则显式禁用环境变量中的代理
     if proxy_url:
         proxies = {"http": proxy_url, "https": proxy_url}
+    else:
+        # 显式禁用环境变量中的代理设置
+        proxies = {"http": None, "https": None}
 
     # 获取分批内容，使用钉钉专用的批次大小
     batches = split_content_into_batches(
@@ -3593,9 +3605,12 @@ def send_to_wework(
 ) -> bool:
     """发送到企业微信（支持分批发送）"""
     headers = {"Content-Type": "application/json"}
-    proxies = None
+    # 明确设置代理：如果配置了代理则使用，否则显式禁用环境变量中的代理
     if proxy_url:
         proxies = {"http": proxy_url, "https": proxy_url}
+    else:
+        # 显式禁用环境变量中的代理设置
+        proxies = {"http": None, "https": None}
 
     # 获取分批内容
     batches = split_content_into_batches(report_data, "wework", update_info, mode=mode)
@@ -3658,9 +3673,12 @@ def send_to_telegram(
     headers = {"Content-Type": "application/json"}
     url = f"https://api.telegram.org/bot{bot_token}/sendMessage"
 
-    proxies = None
+    # 明确设置代理：如果配置了代理则使用，否则显式禁用环境变量中的代理
     if proxy_url:
         proxies = {"http": proxy_url, "https": proxy_url}
+    else:
+        # 显式禁用环境变量中的代理设置
+        proxies = {"http": None, "https": None}
 
     # 获取分批内容
     batches = split_content_into_batches(
@@ -3895,9 +3913,12 @@ def send_to_ntfy(
         base_url = f"https://{base_url}"
     url = f"{base_url}/{topic}"
 
-    proxies = None
+    # 明确设置代理：如果配置了代理则使用，否则显式禁用环境变量中的代理
     if proxy_url:
         proxies = {"http": proxy_url, "https": proxy_url}
+    else:
+        # 显式禁用环境变量中的代理设置
+        proxies = {"http": None, "https": None}
 
     # 获取分批内容，使用ntfy专用的4KB限制
     batches = split_content_into_batches(
